@@ -1,1 +1,236 @@
-<h1>HOME {{name}}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-section {
+            text-align: right;
+        }
+
+        .search-section h2 {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .search-input {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #ff0000;
+        }
+
+        section {
+            margin-top: 20px;
+        }
+
+        section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .form-section {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form input[type="text"] {
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #ff0000;
+        }
+
+        .button1 {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #e7e7e7;
+            color: #000000;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            align-content: center;
+        }
+            .button2 {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            float: right;
+        }
+
+        .button1:hover {
+            background-color: #ff0000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        .modify-button {
+            margin-top: 5px;
+        }
+
+        #form1, #form2 {
+        display: inline-block;
+        }
+
+        .button1, .button2 {
+        display: inline-block;
+        margin-right: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido {{name}}</h1>
+    <div class="container">
+        <div class="search-section">
+            <h2>Buscar Empleado</h2>
+            <form action="/search-employee" method="post" class="search-form">
+                <input type="text" name="searchTerm" class="search-input" placeholder="Nombre del empleado a buscar" required>
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+        </div>
+
+        <section>
+            <h2>Agregar Empleado</h2>
+            <div class="form-section">
+                <form action="/add-employee" method="post">
+                    <input type="text" name="email" placeholder="Email" required>
+                    <input type="text" name="name" placeholder="Nombre" required>
+                    <input type="text" name="Apellidos" placeholder="Apellidos" required>
+                    <input type="text" name="Telefono" placeholder="Teléfono" required>
+                    <input type="text" name="Direccion" placeholder="Dirección" required>
+                    <button type="submit" class="button">Agregar</button>
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <h2>Listado de Empleados</h2>
+            <table>
+                <tr>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
+                </tr>
+                {{#each users}}
+                <tr>
+                    <td>{{email}}</td>
+                    <td>{{name}}</td>
+                    <td>{{Apellidos}}</td>
+                    <td>{{Telefono}}</td>
+                    <td>{{Direccion}}</td>
+                    <td>
+                        <form id="form1" action="/edit-employee/{{email}}" method="post" class="modify-button">
+                            <input type="text" name="name" placeholder="Nuevo nombre" required>
+                            <input type="text" name="Apellidos" placeholder="Nuevos apellidos" required>
+                            <input type="text" name="Telefono" placeholder="Nuevo teléfono" required>
+                            <input type="text" name="Direccion" placeholder="Nueva dirección" required>
+                            <button type="submit" class="button1">Modificar</button>
+
+                        </form>
+
+                    </td>
+                    <td>
+                        
+                            <form id="form2" action="/delete-employee/{{email}}" method="post">
+                                <button type="submit" class="button2 ">Eliminar</button>
+                            </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </section>
+    </div>
+</body>
+</html>
